@@ -176,6 +176,14 @@ namespace SourceGit.ViewModels
             set => SetProperty(ref _hasSingleRemote, value);
         }
 
+        public Dictionary<string, List<Commands.GitHubPullRequests.Badge>> PullRequestsByCommit
+        {
+            get => _pullRequestsByCommit;
+            set => SetProperty(ref _pullRequestsByCommit, value);
+        }
+
+        private Dictionary<string, List<Commands.GitHubPullRequests.Badge>> _pullRequestsByCommit;
+
         public AvaloniaList<Models.IssueTracker> IssueTrackers
         {
             get => _repo.IssueTrackers;

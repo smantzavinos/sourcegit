@@ -500,6 +500,8 @@ namespace SourceGit.ViewModels
             if (_cancellationRefreshStashes is { IsCancellationRequested: false })
                 _cancellationRefreshStashes.Cancel();
 
+            _pullRequestTimer?.Stop();
+            _pullRequestRefresh?.Cancel();
             _watcher?.Dispose();
             _autoFetchTimer.Dispose();
         }
@@ -1193,6 +1195,14 @@ namespace SourceGit.ViewModels
                     LocalBranchTrees = builder.Locals;
                     RemoteBranchTrees = builder.Remotes;
 
+                    if (Commands.GitHubPullRequests.Enabled && _pullRequestTimer == null)
+                    {
+                        _pullRequestTimer = new DispatcherTimer { Interval = TimeSpan.FromMinutes(1) };
+                        _pullRequestTimer.Tick += (_, _) => _ = RefreshGitHubPullRequestsAsync();
+                        _pullRequestTimer.Start();
+                        _ = RefreshGitHubPullRequestsAsync();
+                    }
+
                     ValidateHistoryFilters(true);
 
                     var localBranchesCount = 0;
@@ -1210,6 +1220,28 @@ namespace SourceGit.ViewModels
                     GetOwnerPage()?.ChangeDirtyState(Models.DirtyState.HasPendingPullOrPush, !hasPendingPullOrPush);
                 });
             }, token);
+        }
+
+        private async Task RefreshGitHubPullRequestsAsync()
+        {
+            if (_pullRequestRefresh != null)
+                return;
+
+            using var refresh = new CancellationTokenSource();
+            _pullRequestRefresh = refresh;
+            var remotes = Remotes;
+            var branches = Branches;
+            try
+            {
+                var badges = await Task.Run(() => Commands.GitHubPullRequests.QueryAsync(remotes, branches, refresh.Token));
+                if (!refresh.IsCancellationRequested)
+                    _histories.PullRequestsByCommit = badges;
+            }
+            catch (OperationCanceledException) when (refresh.IsCancellationRequested) { }
+            finally
+            {
+                _pullRequestRefresh = null;
+            }
         }
 
         public void RefreshWorktrees()
@@ -2021,6 +2053,8 @@ namespace SourceGit.ViewModels
 
         private bool _isAutoFetching = false;
         private Timer _autoFetchTimer = null;
+        private DispatcherTimer _pullRequestTimer;
+        private CancellationTokenSource _pullRequestRefresh;
         private DateTime _lastFetchTime = DateTime.MinValue;
 
         private Models.BisectState _bisectState = Models.BisectState.None;

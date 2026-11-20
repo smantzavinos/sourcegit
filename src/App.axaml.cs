@@ -42,7 +42,13 @@ namespace SourceGit
                 else if (TryLaunchAsRebaseMessageEditor(args, out int exitMessage))
                     Environment.Exit(exitMessage);
                 else
+                {
+                    const string prBadges = "--github-pr-badges";
+                    Commands.GitHubPullRequests.Enabled = Array.IndexOf(args, prBadges) >= 0;
+                    if (Commands.GitHubPullRequests.Enabled)
+                        args = Array.FindAll(args, arg => arg != prBadges);
                     BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+                }
             }
             catch (Exception ex)
             {
