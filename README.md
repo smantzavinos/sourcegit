@@ -116,6 +116,7 @@ For **macOS** users:
 
 For **Linux** users:
 
+* On x86_64 with Nix 2.27 or later and flakes enabled, run `nix run .` from a checkout, or `nix build .` to build the package. The flake fetches the pinned AvaloniaEdit submodule automatically. To run from a remote without a checkout, use a `git+https://` flake URL.
 * Thanks [@aikawayataro](https://github.com/aikawayataro) for providing `rpm` and `deb` repositories, hosted on [Codeberg](https://codeberg.org/yataro/-/packages).
 
   `deb` how to:
