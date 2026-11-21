@@ -17,14 +17,19 @@
       <Setter Property="BorderThickness" Value="1"/>
       <Setter Property="CornerRadius" Value="4"/>
       <Setter Property="Cursor" Value="Hand"/>
-      <Setter Property="Foreground" Value="{DynamicResource Brush.Link}"/>
+      <Setter Property="Foreground" Value="{DynamicResource Brush.FG1}"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Padding" Value="0"/>
       <Setter Property="ContentTemplate">
         <DataTemplate DataType="x:String">
-          <StackPanel Orientation="Horizontal" Spacing="3">
-            <Path Width="9" Height="9" Stretch="Uniform" VerticalAlignment="Center"
+          <Grid ColumnDefinitions="16,Auto" Height="15">
+            <Path Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
                   Fill="{Binding $parent[Button].Foreground}" Data="{StaticResource Icons.Merge}"/>
-            <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
-          </StackPanel>
+            <Border Grid.Column="1" Background="{DynamicResource Brush.Link}" Opacity="0.2" CornerRadius="0,3,3,0"/>
+            <Border Grid.Column="1" BorderBrush="{DynamicResource Brush.Link}" BorderThickness="1,0,0,0" Padding="4,0">
+              <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+            </Border>
+          </Grid>
         </DataTemplate>
       </Setter>
     </Style>

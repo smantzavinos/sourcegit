@@ -42,8 +42,6 @@ namespace SourceGit.Views
                 var button = new Button
                 {
                     Content = $"#{badge.Number}",
-                    FontSize = 11,
-                    Padding = new Thickness(4, 0),
                     Margin = new Thickness(0, 0, 5, 0),
                     VerticalAlignment = VerticalAlignment.Center,
                 };

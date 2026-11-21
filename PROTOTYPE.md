@@ -5,7 +5,7 @@
 ## What was prototyped
 
 - **C1 — Discover open PRs.** With `--github-pr-badges`, SourceGit runs `gh api` in the background when a repository opens and once per minute afterward. It queries the GitHub repositories configured as remotes and matches the PR head repository, case-sensitive branch name, and exact fetched commit. See `src/Commands/GitHubPullRequests.cs` and `src/ViewModels/Repository.cs`.
-- **C2 — Show links in the graph.** The graph shows `#123` beside the matching branch labels on the head commit row, with the theme's link color, a small merge icon, and space before the commit subject. The tooltip names the source branch and the destination repository; clicking opens that PR in the browser. See `src/Views/Histories.axaml` and `src/Views/PullRequestBadges.cs`.
+- **C2 — Show links in the graph.** The graph shows `#123` beside the matching branch labels on the head commit row, with the same split icon-and-label layout as branch and tag badges, a light tint behind the PR number, and space before the commit subject. The tooltip names the source branch and the destination repository; clicking opens that PR in the browser. See `src/Views/Histories.axaml` and `src/Views/PullRequestBadges.cs`.
 
 ## Demo scenarios
 
