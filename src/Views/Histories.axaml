@@ -10,6 +10,26 @@
              x:Class="SourceGit.Views.Histories"
              x:DataType="vm:Histories"
              x:Name="ThisControl">
+  <UserControl.Styles>
+    <Style Selector="Button.graph_pr_badge">
+      <Setter Property="Background" Value="{DynamicResource Brush.Contents}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource Brush.Link}"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Foreground" Value="{DynamicResource Brush.Link}"/>
+      <Setter Property="ContentTemplate">
+        <DataTemplate DataType="x:String">
+          <StackPanel Orientation="Horizontal" Spacing="3">
+            <Path Width="9" Height="9" Stretch="Uniform" VerticalAlignment="Center"
+                  Fill="{Binding $parent[Button].Foreground}" Data="{StaticResource Icons.Merge}"/>
+            <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+          </StackPanel>
+        </DataTemplate>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+
   <v:HistoriesLayout UseHorizontal="{Binding Source={x:Static vm:Preferences.Instance}, Path=UseTwoColumnsLayoutInHistories}">
     <v:HistoriesLayout.RowDefinitions>
       <RowDefinition Height="{Binding TopArea, Mode=TwoWay}" MinHeight="100"/>

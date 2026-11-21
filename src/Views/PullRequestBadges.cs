@@ -47,6 +47,7 @@ namespace SourceGit.Views
                     Margin = new Thickness(0, 0, 5, 0),
                     VerticalAlignment = VerticalAlignment.Center,
                 };
+                button.Classes.Add("graph_pr_badge");
                 ToolTip.SetTip(button, $"{badge.Repository} #{badge.Number} — {badge.Branch}");
                 button.Click += (_, _) => Native.OS.OpenBrowser(badge.Url);
                 Children.Add(button);
