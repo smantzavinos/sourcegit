@@ -469,6 +469,7 @@ namespace SourceGit.ViewModels
 
             _historyFilterMode = _uiStates.GetHistoryFilterMode();
             _histories = new Histories(this);
+            _histories.PullRequests.Attach();
             _workingCopy = new WorkingCopy(this) { CommitMessage = _uiStates.LastCommitMessage };
             _stashesPage = new StashesPage(this);
             _selectedViewIndex = Preferences.Instance.ShowLocalChangesByDefault ? 1 : 0;
@@ -500,6 +501,7 @@ namespace SourceGit.ViewModels
             if (_cancellationRefreshStashes is { IsCancellationRequested: false })
                 _cancellationRefreshStashes.Cancel();
 
+            _histories.PullRequests.Detach();
             _watcher?.Dispose();
             _autoFetchTimer.Dispose();
         }
@@ -1192,6 +1194,7 @@ namespace SourceGit.ViewModels
                     CurrentBranch = branches.Find(x => x.IsCurrent);
                     LocalBranchTrees = builder.Locals;
                     RemoteBranchTrees = builder.Remotes;
+                    _histories.PullRequests.UpdateRefs(remotes, branches);
 
                     ValidateHistoryFilters(true);
 

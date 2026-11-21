@@ -10,6 +10,31 @@
              x:Class="SourceGit.Views.Histories"
              x:DataType="vm:Histories"
              x:Name="ThisControl">
+  <UserControl.Styles>
+    <Style Selector="Button.graph_pr_badge">
+      <Setter Property="Background" Value="{DynamicResource Brush.Contents}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource Brush.Link}"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="CornerRadius" Value="4"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Foreground" Value="{DynamicResource Brush.FG1}"/>
+      <Setter Property="FontSize" Value="12"/>
+      <Setter Property="Padding" Value="0"/>
+      <Setter Property="ContentTemplate">
+        <DataTemplate DataType="x:String">
+          <Grid ColumnDefinitions="16,Auto" Height="15">
+            <Path Width="10" Height="10" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
+                  Fill="{Binding $parent[Button].Foreground}" Data="{StaticResource Icons.Merge}"/>
+            <Border Grid.Column="1" Background="{DynamicResource Brush.Link}" Opacity="0.2" CornerRadius="0,3,3,0"/>
+            <Border Grid.Column="1" BorderBrush="{DynamicResource Brush.Link}" BorderThickness="1,0,0,0" Padding="4,0">
+              <TextBlock VerticalAlignment="Center" Text="{Binding}"/>
+            </Border>
+          </Grid>
+        </DataTemplate>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+
   <v:HistoriesLayout UseHorizontal="{Binding Source={x:Static vm:Preferences.Instance}, Path=UseTwoColumnsLayoutInHistories}">
     <v:HistoriesLayout.RowDefinitions>
       <RowDefinition Height="{Binding TopArea, Mode=TwoWay}" MinHeight="100"/>
@@ -113,7 +138,7 @@
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate DataType="m:Commit">
                 <Border Padding="{Binding LeftMargin, Converter={x:Static c:DoubleConverters.ToLeftMargin}}" ClipToBounds="True" Background="Transparent">
-                  <Grid ColumnDefinitions="Auto,Auto,Auto,*" Margin="2,0,4,0" ClipToBounds="True">
+                  <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,*" Margin="2,0,4,0" ClipToBounds="True">
                     <v:CommitStatusIndicator Grid.Column="0"
                                              CurrentBranch="{Binding $parent[v:Histories].CurrentBranch}"
                                              AheadBrush="{DynamicResource Brush.Accent}"
@@ -136,7 +161,12 @@
                                            UseCompactBranchNames="{Binding Source={x:Static vm:Preferences.Instance}, Path=UseCompactBranchNamesInGraph}"
                                            HasSingleRemote="{Binding $parent[v:Histories].HasSingleRemote}"/>
 
-                    <v:CommitSubjectPresenter Grid.Column="3"
+                    <v:PullRequestBadges Grid.Column="3"
+                                         Orientation="Horizontal"
+                                         VerticalAlignment="Center"
+                                         Badges="{Binding $parent[v:Histories].((vm:Histories)DataContext).PullRequests.Badges}"/>
+
+                    <v:CommitSubjectPresenter Grid.Column="4"
                                               Height="26"
                                               FontFamily="{DynamicResource Fonts.Default}"
                                               FontSize="{Binding Source={x:Static vm:Preferences.Instance}, Path=DefaultFontSize}"
@@ -272,6 +302,16 @@
             <Path Width="12" Height="12"
                   Data="{StaticResource Icons.Settings2}"/>
           </Button>
+          <Button Classes="icon_button" Width="18" Height="18"
+                  IsVisible="{Binding PullRequests.Enabled}" IsEnabled="{Binding PullRequests.CanRefresh}"
+                  Command="{Binding PullRequests.RefreshAsync}"
+                  AutomationProperties.Name="{DynamicResource Text.Histories.PullRequest.Refresh}"
+                  ToolTip.Tip="{DynamicResource Text.Histories.PullRequest.Refresh}">
+            <Path Width="14" Height="14" Data="{StaticResource Icons.AutoFetch}"/>
+          </Button>
+          <TextBlock Text="!" VerticalAlignment="Center" FontWeight="Bold"
+                     IsVisible="{Binding PullRequests.RefreshFailed}"
+                     ToolTip.Tip="{DynamicResource Text.Histories.PullRequest.RefreshFailed}"/>
         </StackPanel>
       </Border>
 
