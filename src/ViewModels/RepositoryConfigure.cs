@@ -107,6 +107,16 @@ namespace SourceGit.ViewModels
             set => _repo.Settings.EnableRecursiveWhenAutoUpdatingSubmodules = value;
         }
 
+        public bool ShowGitHubPullRequestBadges
+        {
+            get => _repo.Settings.ShowGitHubPullRequestBadges;
+            set
+            {
+                _repo.Settings.ShowGitHubPullRequestBadges = value;
+                OnPropertyChanged();
+            }
+        }
+
         public AvaloniaList<Models.CommitTemplate> CommitTemplates
         {
             get => _repo.Settings.CommitTemplates;

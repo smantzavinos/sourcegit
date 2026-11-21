@@ -259,7 +259,9 @@
   <x:String x:Key="Text.Configure.Git.ConventionalTypesOverride" xml:space="preserve">Conventional Commit Types</x:String>
   <x:String x:Key="Text.Configure.Git.DefaultRemote" xml:space="preserve">Default Remote</x:String>
   <x:String x:Key="Text.Configure.Git.EnableRecursiveWhenAutoUpdatingSubmodules" xml:space="preserve">Enable `--recursive` when auto-updating submodules</x:String>
+  <x:String x:Key="Text.Configure.Git.GitHubPullRequestBadgesTip" xml:space="preserve">Uses GitHub CLI (gh) to read open pull requests for this repository and its linked worktrees.</x:String>
   <x:String x:Key="Text.Configure.Git.PreferredMergeMode" xml:space="preserve">Preferred Merge Mode</x:String>
+  <x:String x:Key="Text.Configure.Git.ShowGitHubPullRequestBadges" xml:space="preserve">Show GitHub PR badges</x:String>
   <x:String x:Key="Text.Configure.IssueTracker" xml:space="preserve">ISSUE TRACKER</x:String>
   <x:String x:Key="Text.Configure.IssueTracker.AddSampleAzure" xml:space="preserve">Add Azure DevOps Rule</x:String>
   <x:String x:Key="Text.Configure.IssueTracker.AddSampleGerritChangeIdCommit" xml:space="preserve">Add Gerrit Change-Id Commit Rule</x:String>
@@ -535,6 +537,10 @@
   <x:String x:Key="Text.Histories.HighlightsInGraph.CurrentBranchAndSelectedCommits" xml:space="preserve">Current Branch &amp; Selected Commits</x:String>
   <x:String x:Key="Text.Histories.HighlightsInGraph.SelectedCommitsOnly" xml:space="preserve">Selected Commits Only</x:String>
   <x:String x:Key="Text.Histories.HighlightsInGraph.SelectedCommitsOnlyFirstParent" xml:space="preserve">Selected Commits (First-parent Only)</x:String>
+  <x:String x:Key="Text.Histories.PullRequest.Draft" xml:space="preserve">Draft</x:String>
+  <x:String x:Key="Text.Histories.PullRequest.Refresh" xml:space="preserve">Refresh PR badges</x:String>
+  <x:String x:Key="Text.Histories.PullRequest.RefreshFailed" xml:space="preserve">Could not refresh PR badges. Check your network and GitHub CLI login.</x:String>
+  <x:String x:Key="Text.Histories.PullRequest.Stale" xml:space="preserve">Stale: last refresh failed</x:String>
   <x:String x:Key="Text.Histories.Selected" xml:space="preserve">SELECTED {0} COMMITS</x:String>
   <x:String x:Key="Text.Histories.ShowColumns" xml:space="preserve">SHOW COLUMNS</x:String>
   <x:String x:Key="Text.Histories.Tips" xml:space="preserve">Hold 'Ctrl' or 'Shift' to select multiple commits.</x:String>

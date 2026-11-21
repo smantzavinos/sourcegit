@@ -42,6 +42,21 @@ namespace SourceGit.Models
             set;
         } = false;
 
+        public event Action GitHubPullRequestBadgesChanged;
+
+        public bool ShowGitHubPullRequestBadges
+        {
+            get => _showGitHubPullRequestBadges;
+            set
+            {
+                if (_showGitHubPullRequestBadges == value)
+                    return;
+
+                _showGitHubPullRequestBadges = value;
+                GitHubPullRequestBadgesChanged?.Invoke();
+            }
+        }
+
         public string PreferredOpenAIService
         {
             get;
@@ -152,5 +167,6 @@ namespace SourceGit.Models
         private static Dictionary<string, RepositorySettings> _cache = new();
         private string _file = string.Empty;
         private string _orgHash = string.Empty;
+        private bool _showGitHubPullRequestBadges;
     }
 }

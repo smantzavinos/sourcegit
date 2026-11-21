@@ -176,6 +176,8 @@ namespace SourceGit.ViewModels
             set => SetProperty(ref _hasSingleRemote, value);
         }
 
+        public GitHubPullRequestStatus PullRequests => GitHubPullRequestStatus.For(_repo.Settings);
+
         public AvaloniaList<Models.IssueTracker> IssueTrackers
         {
             get => _repo.IssueTrackers;
